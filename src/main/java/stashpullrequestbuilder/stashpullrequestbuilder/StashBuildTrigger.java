@@ -67,6 +67,8 @@ public class StashBuildTrigger extends Trigger<AbstractProject<?, ?>> {
     private final boolean onlyBuildOnComment;
     private final boolean deletePreviousBuildFinishComments;
     private final boolean cancelOutdatedJobsEnabled;
+    private final boolean approveOnBuildSuccessful;
+    private final boolean needsWorkOnBuildFailure;
 
     private boolean checkProbeMergeStatus;
 
@@ -93,7 +95,9 @@ public class StashBuildTrigger extends Trigger<AbstractProject<?, ?>> {
             String ciBuildPhrases,
             boolean deletePreviousBuildFinishComments,
             String targetBranchesToBuild,
-            boolean cancelOutdatedJobsEnabled
+            boolean cancelOutdatedJobsEnabled,
+            boolean approveOnBuildSuccessful,
+            boolean needsWorkOnBuildFailure
     ) throws ANTLRException {
         super(cron);
         this.projectPath = projectPath;
@@ -113,6 +117,8 @@ public class StashBuildTrigger extends Trigger<AbstractProject<?, ?>> {
         this.onlyBuildOnComment = onlyBuildOnComment;
         this.deletePreviousBuildFinishComments = deletePreviousBuildFinishComments;
         this.targetBranchesToBuild = targetBranchesToBuild;
+        this.approveOnBuildSuccessful = approveOnBuildSuccessful;
+        this.needsWorkOnBuildFailure = needsWorkOnBuildFailure;
     }
 
     @DataBoundSetter
@@ -196,6 +202,14 @@ public class StashBuildTrigger extends Trigger<AbstractProject<?, ?>> {
 
     public boolean isCancelOutdatedJobsEnabled() {
         return cancelOutdatedJobsEnabled;
+    }
+
+    public boolean isApproveOnBuildSuccessful() {
+        return approveOnBuildSuccessful;
+    }
+
+     public boolean isNeedsWorkOnBuildFailure() {
+        return needsWorkOnBuildFailure;
     }
 
     @Override
